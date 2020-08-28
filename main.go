@@ -139,7 +139,9 @@ func (p *parser) Parse() []string {
 		case '"', '\'':
 			p.parseString(r)
 		}
-		p.adjacent = false
+		if !unicode.IsSpace(r) {
+			p.adjacent = false
+		}
 	}
 	s := make([]string, len(p.comments))
 	for i, group := range p.comments {
