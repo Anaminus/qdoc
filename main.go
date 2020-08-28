@@ -376,6 +376,7 @@ func HandleFile(input, output string) {
 	if len(bytes.TrimSpace(b)) == 0 {
 		return
 	}
+	os.MkdirAll(filepath.Dir(output), 0755)
 	if err := ioutil.WriteFile(output, b, 0666); err != nil {
 		fmt.Println(err)
 	}
