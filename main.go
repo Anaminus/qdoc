@@ -139,7 +139,7 @@ func (p *parser) Parse() []string {
 		case '"', '\'':
 			p.parseString(r)
 		}
-		if !unicode.IsSpace(r) {
+		if !unicode.IsSpace(r) || r == '\n' {
 			p.adjacent = false
 		}
 	}
