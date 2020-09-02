@@ -3,10 +3,6 @@
 --@doc: Vector3 describes a vector in 3D space.
 local Vector3 = {__index={}}
 
---@sec: Vector3.new
---@ord: -2
---@def: Vector3.new(x: number?, y: number?, z: number?): Vector3
---@doc: new returns a new Vector3 with the given components.
 local function newVector3(x, y, z)
 	return setmetatable({X=x, Y=y, Z=z}, Vector3)
 end
@@ -163,5 +159,9 @@ function Vector3:__unm()
 end
 
 return {
+	--@sec: Vector3.new
+	--@ord: -2
+	--@def: Vector3.new(x: number?, y: number?, z: number?): Vector3
+	--@doc: new returns a new Vector3 with the given components.
 	new = newVector3,
 }
