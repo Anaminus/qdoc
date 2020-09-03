@@ -294,19 +294,13 @@ func BuildSections(groups []Directives) Sections {
 }
 
 func sanitizeAnchorName(text string) string {
-	// From github.com/shurcooL/sanitized_anchor_name
 	var anchorName []rune
-	var futureDash = false
 	for _, r := range text {
 		switch {
 		case unicode.IsLetter(r) || unicode.IsNumber(r):
-			if futureDash && len(anchorName) > 0 {
-				anchorName = append(anchorName, '-')
-			}
-			futureDash = false
 			anchorName = append(anchorName, unicode.ToLower(r))
-		default:
-			futureDash = true
+		case r == ' ', r == '-':
+			anchorName = append(anchorName, '-')
 		}
 	}
 	return string(anchorName)
