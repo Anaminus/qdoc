@@ -382,7 +382,7 @@ func replaceExt(path, ext string) string {
 	return path[:len(path)-len(filepath.Ext(path))] + ext
 }
 
-const Usage = `qdoc [-ext EXT] [-o DIR] [GLOB...]
+const Usage = `qdoc [-ext EXT] [-o DIR] [-base NAME] [GLOB...]
 
 Converts documentation within a Lua script into a Markdown file.
 
@@ -454,7 +454,8 @@ An output file is not written if its content is empty or only contains spacing.
 
 The -o flag is a path to a directory to which output files will be written. If
 -o is not specified, then an output file is written to the same directory as the
-input file.
+input file. In this case, the -base flag can be used to specify the base name of
+the output file.
 
 To determine the location of an output file, the extension of each matched file
 is replaced with .md, which can be changed with the -ext flag. An input file is
@@ -468,12 +469,14 @@ Flags:
 
 func main() {
 	var output string
+	var base string
 	var ext string
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), Usage)
 		flag.PrintDefaults()
 	}
 	flag.StringVar(&output, "o", "", "Directory to which files will be written.")
+	flag.StringVar(&base, "base", "", "Base name of output files.")
 	flag.StringVar(&ext, "ext", ".md", "Extension of output files.")
 	flag.Parse()
 	args := flag.Args()
@@ -491,8 +494,14 @@ func main() {
 	}
 
 	if output == "" {
+		if base == "" {
+			for _, file := range files {
+				HandleFile(file, replaceExt(file, ext))
+			}
+			return
+		}
 		for _, file := range files {
-			HandleFile(file, replaceExt(file, ext))
+			HandleFile(file, replaceExt(filepath.Join(filepath.Dir(file), base), ext))
 		}
 		return
 	}
