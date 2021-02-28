@@ -297,7 +297,7 @@ func sanitizeAnchorName(text string) string {
 	var anchorName []rune
 	for _, r := range text {
 		switch {
-		case unicode.IsLetter(r) || unicode.IsNumber(r):
+		case unicode.IsLetter(r) || unicode.IsNumber(r) || r == '_':
 			anchorName = append(anchorName, unicode.ToLower(r))
 		case r == ' ', r == '-':
 			anchorName = append(anchorName, '-')
