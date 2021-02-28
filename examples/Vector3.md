@@ -108,7 +108,8 @@ component divided by the number.
 Vector3 == Vector3: boolean
 ```
 
-Two vectors are equal if each of their X, Y, and Z components are equal.
+Two vectors are equal if each of their [X][Vector3.X], [Y][Vector3.Y],
+and [Z][Vector3.Z] components are equal.
 
 ## Multiplication
 [Vector3.__mul]: #user-content-multiplication
@@ -136,8 +137,8 @@ second subtracted from those of the first.
 ## String
 [Vector3.__tostring]: #user-content-string
 
-A vector, when converted to a string, displays each of its X, Y, and Z
-components.
+A vector, when converted to a string, displays each of its
+[X][Vector3.X], [Y][Vector3.Y], and [Z][Vector3.Z] components.
 
 ## Negation
 [Vector3.__unm]: #user-content-negation

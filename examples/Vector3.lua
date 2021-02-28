@@ -70,15 +70,16 @@ end
 --@sec: Equality {Vector3.__eq}
 --@ord: 1
 --@def: Vector3 == Vector3: boolean
---@doc: Two vectors are equal if each of their X, Y, and Z components are equal.
+--@doc: Two vectors are equal if each of their [X][Vector3.X], [Y][Vector3.Y],
+-- and [Z][Vector3.Z] components are equal.
 function Vector3:__eq(v)
 	return self.X == v.X and self.Y == v.Y and self.Z == v.Z
 end
 
 --@sec: String {Vector3.__tostring}
 --@ord: 1
---@doc: A vector, when converted to a string, displays each of its X, Y, and Z
--- components.
+--@doc: A vector, when converted to a string, displays each of its
+-- [X][Vector3.X], [Y][Vector3.Y], and [Z][Vector3.Z] components.
 function Vector3:__tostring()
 	return self.X .. ", " .. self.Y .. ", " ..self.Z
 end
