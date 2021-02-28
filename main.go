@@ -312,7 +312,7 @@ func generateHeadingLink(heading string) string {
 	return "#user-content-" + sanitizeAnchorName(heading)
 }
 
-func generateSection(b *strings.Builder, s *Section, level int) {
+func generateSection(b *strings.Builder, s *Section, level int, toc *Sections) {
 	b.WriteString(strings.Repeat("#", level))
 	b.WriteByte(' ')
 	b.WriteString(s.Heading)
@@ -332,15 +332,44 @@ func generateSection(b *strings.Builder, s *Section, level int) {
 		b.WriteString(doc)
 		b.WriteString("\n\n")
 	}
-	for _, sub := range s.Sub {
-		generateSection(b, sub, level+1)
+	if toc != nil {
+		generateToC(b, *toc)
 	}
+	for _, sub := range s.Sub {
+		generateSection(b, sub, level+1, nil)
+	}
+}
+
+func tocEntry(b *strings.Builder, s Sections, level int) {
+	for i, section := range s {
+		b.WriteString(strings.Repeat("\t", level))
+		b.WriteString(strconv.Itoa(i + 1))
+		b.WriteString(". [")
+		b.WriteString(section.Heading)
+		b.WriteString("][")
+		b.WriteString(section.Path)
+		b.WriteString("]\n")
+		tocEntry(b, section.Sub, level+1)
+	}
+}
+
+func generateToC(b *strings.Builder, s Sections) {
+	b.WriteString("<table>\n")
+	b.WriteString("<thead><tr><th>Table of Contents</th></tr></thead>\n")
+	b.WriteString("<tbody><tr><td>\n\n")
+	tocEntry(b, s, 0)
+	b.WriteString("\n</td></tr></tbody>\n")
+	b.WriteString("</table>\n\n")
 }
 
 func GenerateMarkdown(sections Sections) []byte {
 	var b strings.Builder
-	for _, section := range sections {
-		generateSection(&b, section, 1)
+	for i, section := range sections {
+		if i == 0 && !Options.NoToC {
+			generateSection(&b, section, 1, &sections)
+			continue
+		}
+		generateSection(&b, section, 1, nil)
 	}
 	return []byte(b.String())
 }
@@ -467,17 +496,22 @@ working directory are matched.
 Flags:
 `
 
+var Options struct {
+	Output string
+	Base   string
+	Ext    string
+	NoToC  bool
+}
+
 func main() {
-	var output string
-	var base string
-	var ext string
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), Usage)
 		flag.PrintDefaults()
 	}
-	flag.StringVar(&output, "o", "", "Directory to which files will be written.")
-	flag.StringVar(&base, "base", "", "Base name of output files.")
-	flag.StringVar(&ext, "ext", ".md", "Extension of output files.")
+	flag.StringVar(&Options.Output, "o", "", "Directory to which files will be written.")
+	flag.StringVar(&Options.Base, "base", "", "Base name of output files.")
+	flag.StringVar(&Options.Ext, "ext", ".md", "Extension of output files.")
+	flag.BoolVar(&Options.NoToC, "notoc", false, "Whether to write a table of contents.")
 	flag.Parse()
 	args := flag.Args()
 	if len(args) == 0 {
@@ -493,19 +527,19 @@ func main() {
 		files = append(files, matches...)
 	}
 
-	if output == "" {
-		if base == "" {
+	if Options.Output == "" {
+		if Options.Base == "" {
 			for _, file := range files {
-				HandleFile(file, replaceExt(file, ext))
+				HandleFile(file, replaceExt(file, Options.Ext))
 			}
 			return
 		}
 		for _, file := range files {
-			HandleFile(file, replaceExt(filepath.Join(filepath.Dir(file), base), ext))
+			HandleFile(file, replaceExt(filepath.Join(filepath.Dir(file), Options.Base), Options.Ext))
 		}
 		return
 	}
 	for _, file := range files {
-		HandleFile(file, filepath.Join(output, replaceExt(filepath.Base(file), ext)))
+		HandleFile(file, filepath.Join(Options.Output, replaceExt(filepath.Base(file), Options.Ext)))
 	}
 }

@@ -6,6 +6,31 @@ type Vector3
 
 Vector3 describes a vector in 3D space.
 
+<table>
+<thead><tr><th>Table of Contents</th></tr></thead>
+<tbody><tr><td>
+
+1. [Vector3][Vector3]
+	1. [Vector3.new][Vector3.new]
+	2. [Vector3.X][Vector3.X]
+	3. [Vector3.Y][Vector3.Y]
+	4. [Vector3.Z][Vector3.Z]
+	5. [Vector3.Cross][Vector3.Cross]
+	6. [Vector3.Dot][Vector3.Dot]
+	7. [Vector3.Lerp][Vector3.Lerp]
+	8. [Vector3.Magnitude][Vector3.Magnitude]
+	9. [Vector3.Unit][Vector3.Unit]
+	10. [Addition][Vector3.__add]
+	11. [Division][Vector3.__div]
+	12. [Equality][Vector3.__eq]
+	13. [Multiplication][Vector3.__mul]
+	14. [Subtraction][Vector3.__sub]
+	15. [String][Vector3.__tostring]
+	16. [Negation][Vector3.__unm]
+
+</td></tr></tbody>
+</table>
+
 ## Vector3.new
 [Vector3.new]: #user-content-vector3new
 ```
