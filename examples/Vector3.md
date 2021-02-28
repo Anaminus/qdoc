@@ -7,7 +7,7 @@ type Vector3
 Vector3 describes a vector in 3D space.
 
 ## Vector3.new
-[Vector3.new]: #user-content-vector3-new
+[Vector3.new]: #user-content-vector3new
 ```
 Vector3.new(x: number?, y: number?, z: number?): Vector3
 ```
@@ -15,7 +15,7 @@ Vector3.new(x: number?, y: number?, z: number?): Vector3
 new returns a new Vector3 with the given components.
 
 ## Vector3.X
-[Vector3.X]: #user-content-vector3-x
+[Vector3.X]: #user-content-vector3x
 ```
 Vector3.X: number
 ```
@@ -23,7 +23,7 @@ Vector3.X: number
 X returns the x component of the vector.
 
 ## Vector3.Y
-[Vector3.Y]: #user-content-vector3-y
+[Vector3.Y]: #user-content-vector3y
 ```
 Vector3.Y: number
 ```
@@ -31,7 +31,7 @@ Vector3.Y: number
 Y returns the y component of the vector.
 
 ## Vector3.Z
-[Vector3.Z]: #user-content-vector3-z
+[Vector3.Z]: #user-content-vector3z
 ```
 Vector3.Z: number
 ```
@@ -39,7 +39,7 @@ Vector3.Z: number
 Z returns the z component of the vector.
 
 ## Vector3.Cross
-[Vector3.Cross]: #user-content-vector3-cross
+[Vector3.Cross]: #user-content-vector3cross
 ```
 Vector3:Cross(v: Vector3): Vector3
 ```
@@ -47,7 +47,7 @@ Vector3:Cross(v: Vector3): Vector3
 Cross returns the cross product of the two vectors.
 
 ## Vector3.Dot
-[Vector3.Dot]: #user-content-vector3-dot
+[Vector3.Dot]: #user-content-vector3dot
 ```
 Vector3:Dot(v: Vector3): number
 ```
@@ -55,7 +55,7 @@ Vector3:Dot(v: Vector3): number
 Dot returns the scalar dot product of the two vectors.
 
 ## Vector3.Lerp
-[Vector3.Lerp]: #user-content-vector3-lerp
+[Vector3.Lerp]: #user-content-vector3lerp
 ```
 Vector3:Lerp(goal: Vector3, alpha: number): Vector3
 ```
@@ -64,7 +64,7 @@ Lerp returns a vector linearly interpolated between the vector and
 *goal* by the fraction *alpha*.
 
 ## Vector3.Magnitude
-[Vector3.Magnitude]: #user-content-vector3-magnitude
+[Vector3.Magnitude]: #user-content-vector3magnitude
 ```
 Vector3:Magnitude(): number
 ```
@@ -72,7 +72,7 @@ Vector3:Magnitude(): number
 Magnitude returns the length of the vector.
 
 ## Vector3.Unit
-[Vector3.Unit]: #user-content-vector3-unit
+[Vector3.Unit]: #user-content-vector3unit
 ```
 Vector3:Unit(): Vector3
 ```
